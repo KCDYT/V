@@ -60,9 +60,10 @@ ${menuSections}
 *──╼『 ${BOT_NAME} 』╾──*
 > *ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴀʜᴍᴀᴅ ʜᴀssᴀɴ*`;
 
-        // Image Selection (Auto fallback to a stable link if local fails)
+        // Image Selection
         let imageToUse = config.BOT_IMAGE || "https://files.catbox.moe/p5id8x.jpg";
 
+        // 1. Pehle Menu Image aur Caption send karein
         await conn.sendMessage(from, { 
             image: { url: imageToUse },
             caption: dec, 
@@ -76,6 +77,13 @@ ${menuSections}
                     serverMessageId: 143 
                 } 
             } 
+        }, { quoted: mek });
+
+        // 2. Ab Voice Audio send karein
+        await conn.sendMessage(from, {
+            audio: { url: "https://files.catbox.moe/hoi9ur.mp3" },
+            mimetype: 'audio/mpeg',
+            ptt: true // Isse ye voice note ki tarah show hoga
         }, { quoted: mek });
 
     } catch (e) { 
