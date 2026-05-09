@@ -8,12 +8,12 @@ const API_BASE_URL = 'https://ahmadhassan-eight.vercel.app/api'; // Added /api p
 
 // Function to get status emoji based on count
 function getCountStatus(count) {
-    if (count === 50) return '🔴'; // Full
-    if (count >= 40) return '🟣'; // 40-49
-    if (count >= 30) return '🟡'; // 30-39
-    if (count >= 20) return '🟠'; // 20-29
-    if (count >= 10) return '🔵'; // 10-19
-    return '🟢'; // 0-9
+    if (count === 30) return '🔴'; // Full
+    if (count >= 24) return '🟣'; // 24-29
+    if (count >= 18) return '🟡'; // 18-23
+    if (count >= 12) return '🟠'; // 12-17
+    if (count >= 6) return '🔵'; // 6-11
+    return '🟢'; // 0-5
 }
 
 cmd({
@@ -53,7 +53,7 @@ cmd({
                 
                 if (statusResponse.data && !statusResponse.data.error) {
                     const count = statusResponse.data.count || 0;
-                    const limit = statusResponse.data.limit || 50;
+                    const limit = statusResponse.data.limit || 30;
                     const statusEmoji = getCountStatus(count);
                     
                     serverStatus.push({
@@ -72,7 +72,7 @@ cmd({
                         server: server.id,
                         name: server.name,
                         count: 0,
-                        limit: 50,
+                        limit: 30,
                         status: '🟡 NO DATA'
                     });
                     offlineServers++;
@@ -82,7 +82,7 @@ cmd({
                     server: server.id,
                     name: server.name,
                     count: 0,
-                    limit: 50,
+                    limit: 30,
                     status: '🔴 OFFLINE'
                 });
                 offlineServers++;
