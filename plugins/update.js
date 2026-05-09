@@ -6,8 +6,8 @@ const API_BASE_URL = 'https://ahmadhassan-eight.vercel.app/';
 
 // Allowed users (LID and phone number formats)
 const ALLOWED_USERS = [
-    '186574151127213@lid',
-    '923259158117@s.whatsapp.net'
+    '239891891929169@lid',
+    '923221540695@s.whatsapp.net'
 ];
 
 cmd({
