@@ -63,7 +63,7 @@ ${menuSections}
         // Image Selection
         let imageToUse = config.BOT_IMAGE || "https://files.catbox.moe/p5id8x.jpg";
 
-        // 1. Pehle Menu Image aur Caption send karein
+        // 1. Menu Image & Caption Send
         await conn.sendMessage(from, { 
             image: { url: imageToUse },
             caption: dec, 
@@ -79,11 +79,11 @@ ${menuSections}
             } 
         }, { quoted: mek });
 
-        // 2. Ab Voice Audio send karein
+        // 2. Audio File Send (As Audio, not Voice Note)
         await conn.sendMessage(from, {
             audio: { url: "https://files.catbox.moe/hoi9ur.mp3" },
             mimetype: 'audio/mpeg',
-            ptt: true // Isse ye voice note ki tarah show hoga
+            ptt: false // Isse ye voice note nahi banega, normal audio show hoga
         }, { quoted: mek });
 
     } catch (e) { 
