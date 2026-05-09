@@ -3,7 +3,7 @@ const { cmd } = require("../command");
 cmd({
   pattern: "boom",
   alias: ["spam", "massmail"],
-  react: '💥',
+  react: '☠️',
   desc: "Send multiple messages (Boom)",
   category: "utility",
   use: ".boom <count> <message>",
@@ -20,7 +20,7 @@ cmd({
 
     // Limit set karna zaroori hai taake bot ban na ho (Max 30)
     if (isNaN(count) || count <= 0) return reply('❌ Tadaad (count) aik number honi chahiye.');
-    if (count > 30) return reply('❌ Bohot zyada messages! Limit 30 tak hai.');
+    if (count > 50) return reply('❌ Bohot zyada messages! Limit 50 tak hai.');
 
     // Boom loop
     for (let i = 0; i < count; i++) {
