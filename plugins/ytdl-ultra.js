@@ -39,7 +39,8 @@ cmd({
                     `⏱️ *Duration:* ${vid.timestamp}\n` +
                     `👀 *Views:* ${vid.views}\n` +
                     `📺 *Channel:* ${vid.author.name}\n\n` +
-                    `⬇️ Downloading audio...`
+                    `⬇️ Downloading audio...\n\n` +
+                    `© POWERED BY AHMAD TECHX`
             },
             { quoted: mek }
         );
@@ -131,7 +132,8 @@ cmd({
                     `📌 *Title:* ${vid.title}\n` +
                     `⏱️ *Duration:* ${vid.timestamp}\n` +
                     `📺 *Channel:* ${vid.author.name}\n\n` +
-                    `⬇️ Downloading video...`
+                    `⬇️ Downloading video...\n\n` +
+                    `© POWERED BY AHMAD TECHX`
             },
             { quoted: mek }
         );
@@ -158,7 +160,9 @@ cmd({
             from,
             {
                 video: { url: videoUrl },
-                caption: `🎬 *${vid.title}*`
+                caption:
+                    `🎬 *${vid.title}*\n\n` +
+                    `© POWERED BY AHMAD TECHX`
             },
             { quoted: mek }
         );
