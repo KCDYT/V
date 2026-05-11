@@ -29,7 +29,7 @@ const videoUrls = {
     v25: 'https://files.catbox.moe/2xpcb1.mp4'
 };
 
-const captionText = "Powered by AHMAD🫠";
+const captionText = "*Powered by AHMAD🫠*";
 
 // Commands 1 to 25
 const videoKeys = Object.keys(videoUrls);
