@@ -28,53 +28,178 @@ const boyDpUrls = {
 
 const caption = `*_Powered by 𝐀͢ͱ꧊ϻ͒͜𝛂͜𝛛🚩_*`;
 
-// ✅ Sare patterns - har image ke liye 6 patterns
-const allPatterns = [
-    { patterns: ["boydp1", "boyDP1", "bdp1", "boy1", "larkadp1", "bdp1"], url: boyDpUrls.url1 },
-    { patterns: ["boydp2", "boyDP2", "bdp2", "boy2", "larkadp2", "bdp2"], url: boyDpUrls.url2 },
-    { patterns: ["boydp3", "boyDP3", "bdp3", "boy3", "larkadp3", "bdp3"], url: boyDpUrls.url3 },
-    { patterns: ["boydp4", "boyDP4", "bdp4", "boy4", "larkadp4", "bdp4"], url: boyDpUrls.url4 },
-    { patterns: ["boydp5", "boyDP5", "bdp5", "boy5", "larkadp5", "bdp5"], url: boyDpUrls.url5 },
-    { patterns: ["boydp6", "boyDP6", "bdp6", "boy6", "larkadp6", "bdp6"], url: boyDpUrls.url6 },
-    { patterns: ["boydp7", "boyDP7", "bdp7", "boy7", "larkadp7", "bdp7"], url: boyDpUrls.url7 },
-    { patterns: ["boydp8", "boyDP8", "bdp8", "boy8", "larkadp8", "bdp8"], url: boyDpUrls.url8 },
-    { patterns: ["boydp9", "boyDP9", "bdp9", "boy9", "larkadp9", "bdp9"], url: boyDpUrls.url9 },
-    { patterns: ["boydp10", "boyDP10", "bdp10", "boy10", "larkadp10", "bdp10"], url: boyDpUrls.url10 },
-    { patterns: ["boydp11", "boyDP11", "bdp11", "boy11", "larkadp11", "bdp11"], url: boyDpUrls.url11 },
-    { patterns: ["boydp12", "boyDP12", "bdp12", "boy12", "larkadp12", "bdp12"], url: boyDpUrls.url12 },
-    { patterns: ["boydp13", "boyDP13", "bdp13", "boy13", "larkadp13", "bdp13"], url: boyDpUrls.url13 },
-    { patterns: ["boydp14", "boyDP14", "bdp14", "boy14", "larkadp14", "bdp14"], url: boyDpUrls.url14 },
-    { patterns: ["boydp15", "boyDP15", "bdp15", "boy15", "larkadp15", "bdp15"], url: boyDpUrls.url15 },
-    { patterns: ["boydp16", "boyDP16", "bdp16", "boy16", "larkadp16", "bdp16"], url: boyDpUrls.url16 },
-    { patterns: ["boydp17", "boyDP17", "bdp17", "boy17", "larkadp17", "bdp17"], url: boyDpUrls.url17 },
-    { patterns: ["boydp18", "boyDP18", "bdp18", "boy18", "larkadp18", "bdp18"], url: boyDpUrls.url18 },
-    { patterns: ["boydp19", "boyDP19", "bdp19", "boy19", "larkadp19", "bdp19"], url: boyDpUrls.url19 },
-    { patterns: ["boydp20", "boyDP20", "bdp20", "boy20", "larkadp20", "bdp20"], url: boyDpUrls.url20 },
-    { patterns: ["boydp21", "boyDP21", "bdp21", "boy21", "larkadp21", "bdp21"], url: boyDpUrls.url21 },
-    { patterns: ["boydp22", "boyDP22", "bdp22", "boy22", "larkadp22", "bdp22"], url: boyDpUrls.url22 },
-];
+// Boy DP 1
+cmd({ pattern: "boydp1", desc: "Send boy DP 1", category: "boydp", react: "👦", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try {
+        await conn.sendMessage(from, { image: { url: boyDpUrls.url1 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in boydp1:", e); await reply("Failed to send image."); }
+});
 
-// ✅ Auto loop
-allPatterns.forEach(({ patterns, url }, index) => {
-    patterns.forEach((pat) => {
-        cmd({
-            pattern: pat,
-            desc: `Boy DP ${index + 1}`,
-            category: "boydp",
-            react: "👦",
-            filename: __filename
-        },
-        async (conn, mek, m, { from, reply }) => {
-            try {
-                await conn.sendMessage(from, {
-                    image: { url },
-                    mimetype: 'image/jpeg',
-                    caption
-                }, { quoted: mek });
-            } catch (e) {
-                console.error(`Error in ${pat}:`, e);
-                await reply("Failed to send image. Please try again.");
-            }
-        });
-    });
+// Boy DP 2
+cmd({ pattern: "boydp2", desc: "Send boy DP 2", category: "boydp", react: "👦", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try {
+        await conn.sendMessage(from, { image: { url: boyDpUrls.url2 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in boydp2:", e); await reply("Failed to send image."); }
+});
+
+// Boy DP 3
+cmd({ pattern: "boydp3", desc: "Send boy DP 3", category: "boydp", react: "👦", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try {
+        await conn.sendMessage(from, { image: { url: boyDpUrls.url3 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in boydp3:", e); await reply("Failed to send image."); }
+});
+
+// Boy DP 4
+cmd({ pattern: "boydp4", desc: "Send boy DP 4", category: "boydp", react: "👦", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try {
+        await conn.sendMessage(from, { image: { url: boyDpUrls.url4 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in boydp4:", e); await reply("Failed to send image."); }
+});
+
+// Boy DP 5
+cmd({ pattern: "boydp5", desc: "Send boy DP 5", category: "boydp", react: "👦", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try {
+        await conn.sendMessage(from, { image: { url: boyDpUrls.url5 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in boydp5:", e); await reply("Failed to send image."); }
+});
+
+// Boy DP 6
+cmd({ pattern: "boydp6", desc: "Send boy DP 6", category: "boydp", react: "👦", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try {
+        await conn.sendMessage(from, { image: { url: boyDpUrls.url6 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in boydp6:", e); await reply("Failed to send image."); }
+});
+
+// Boy DP 7
+cmd({ pattern: "boydp7", desc: "Send boy DP 7", category: "boydp", react: "👦", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try {
+        await conn.sendMessage(from, { image: { url: boyDpUrls.url7 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in boydp7:", e); await reply("Failed to send image."); }
+});
+
+// Boy DP 8
+cmd({ pattern: "boydp8", desc: "Send boy DP 8", category: "boydp", react: "👦", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try {
+        await conn.sendMessage(from, { image: { url: boyDpUrls.url8 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in boydp8:", e); await reply("Failed to send image."); }
+});
+
+// Boy DP 9
+cmd({ pattern: "boydp9", desc: "Send boy DP 9", category: "boydp", react: "👦", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try {
+        await conn.sendMessage(from, { image: { url: boyDpUrls.url9 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in boydp9:", e); await reply("Failed to send image."); }
+});
+
+// Boy DP 10
+cmd({ pattern: "boydp10", desc: "Send boy DP 10", category: "boydp", react: "👦", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try {
+        await conn.sendMessage(from, { image: { url: boyDpUrls.url10 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in boydp10:", e); await reply("Failed to send image."); }
+});
+
+// Boy DP 11
+cmd({ pattern: "boydp11", desc: "Send boy DP 11", category: "boydp", react: "👦", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try {
+        await conn.sendMessage(from, { image: { url: boyDpUrls.url11 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in boydp11:", e); await reply("Failed to send image."); }
+});
+
+// Boy DP 12
+cmd({ pattern: "boydp12", desc: "Send boy DP 12", category: "boydp", react: "👦", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try {
+        await conn.sendMessage(from, { image: { url: boyDpUrls.url12 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in boydp12:", e); await reply("Failed to send image."); }
+});
+
+// Boy DP 13
+cmd({ pattern: "boydp13", desc: "Send boy DP 13", category: "boydp", react: "👦", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try {
+        await conn.sendMessage(from, { image: { url: boyDpUrls.url13 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in boydp13:", e); await reply("Failed to send image."); }
+});
+
+// Boy DP 14
+cmd({ pattern: "boydp14", desc: "Send boy DP 14", category: "boydp", react: "👦", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try {
+        await conn.sendMessage(from, { image: { url: boyDpUrls.url14 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in boydp14:", e); await reply("Failed to send image."); }
+});
+
+// Boy DP 15
+cmd({ pattern: "boydp15", desc: "Send boy DP 15", category: "boydp", react: "👦", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try {
+        await conn.sendMessage(from, { image: { url: boyDpUrls.url15 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in boydp15:", e); await reply("Failed to send image."); }
+});
+
+// Boy DP 16
+cmd({ pattern: "boydp16", desc: "Send boy DP 16", category: "boydp", react: "👦", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try {
+        await conn.sendMessage(from, { image: { url: boyDpUrls.url16 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in boydp16:", e); await reply("Failed to send image."); }
+});
+
+// Boy DP 17
+cmd({ pattern: "boydp17", desc: "Send boy DP 17", category: "boydp", react: "👦", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try {
+        await conn.sendMessage(from, { image: { url: boyDpUrls.url17 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in boydp17:", e); await reply("Failed to send image."); }
+});
+
+// Boy DP 18
+cmd({ pattern: "boydp18", desc: "Send boy DP 18", category: "boydp", react: "👦", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try {
+        await conn.sendMessage(from, { image: { url: boyDpUrls.url18 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in boydp18:", e); await reply("Failed to send image."); }
+});
+
+// Boy DP 19
+cmd({ pattern: "boydp19", desc: "Send boy DP 19", category: "boydp", react: "👦", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try {
+        await conn.sendMessage(from, { image: { url: boyDpUrls.url19 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in boydp19:", e); await reply("Failed to send image."); }
+});
+
+// Boy DP 20
+cmd({ pattern: "boydp20", desc: "Send boy DP 20", category: "boydp", react: "👦", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try {
+        await conn.sendMessage(from, { image: { url: boyDpUrls.url20 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in boydp20:", e); await reply("Failed to send image."); }
+});
+
+// Boy DP 21
+cmd({ pattern: "boydp21", desc: "Send boy DP 21", category: "boydp", react: "👦", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try {
+        await conn.sendMessage(from, { image: { url: boyDpUrls.url21 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in boydp21:", e); await reply("Failed to send image."); }
+});
+
+// Boy DP 22
+cmd({ pattern: "boydp22", desc: "Send boy DP 22", category: "boydp", react: "👦", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try {
+        await conn.sendMessage(from, { image: { url: boyDpUrls.url22 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in boydp22:", e); await reply("Failed to send image."); }
 });
