@@ -28,75 +28,156 @@ const coupleDpUrls = {
 
 const caption = `*_Powered by 𝐀͢ͱ꧊ϻ͒͜𝛂͜𝛛🚩_*`;
 
-// ✅ Sare patterns ek jagah define karo
-const allPatterns = [
-    // URL 1
-    { patterns: ["cp1", "coupleDP1", "cdp1", "couple1", "loveDP1", "ldp1"], url: coupleDpUrls.url1 },
-    // URL 2
-    { patterns: ["cp2", "coupleDP2", "cdp2", "couple2", "loveDP2", "ldp2"], url: coupleDpUrls.url2 },
-    // URL 3
-    { patterns: ["cp3", "coupleDP3", "cdp3", "couple3", "loveDP3", "ldp3"], url: coupleDpUrls.url3 },
-    // URL 4
-    { patterns: ["cp4", "coupleDP4", "cdp4", "couple4", "loveDP4", "ldp4"], url: coupleDpUrls.url4 },
-    // URL 5
-    { patterns: ["cp5", "coupleDP5", "cdp5", "couple5", "loveDP5", "ldp5"], url: coupleDpUrls.url5 },
-    // URL 6
-    { patterns: ["cp6", "coupleDP6", "cdp6", "couple6", "loveDP6", "ldp6"], url: coupleDpUrls.url6 },
-    // URL 7
-    { patterns: ["cp7", "coupleDP7", "cdp7", "couple7", "loveDP7", "ldp7"], url: coupleDpUrls.url7 },
-    // URL 8
-    { patterns: ["cp8", "coupleDP8", "cdp8", "couple8", "loveDP8", "ldp8"], url: coupleDpUrls.url8 },
-    // URL 9
-    { patterns: ["cp9", "coupleDP9", "cdp9", "couple9", "loveDP9", "ldp9"], url: coupleDpUrls.url9 },
-    // URL 10
-    { patterns: ["cp10", "coupleDP10", "cdp10", "couple10", "loveDP10", "ldp10"], url: coupleDpUrls.url10 },
-    // URL 11
-    { patterns: ["cp11", "coupleDP11", "cdp11", "couple11", "loveDP11", "ldp11"], url: coupleDpUrls.url11 },
-    // URL 12
-    { patterns: ["cp12", "coupleDP12", "cdp12", "couple12", "loveDP12", "ldp12"], url: coupleDpUrls.url12 },
-    // URL 13
-    { patterns: ["cp13", "coupleDP13", "cdp13", "couple13", "loveDP13", "ldp13"], url: coupleDpUrls.url13 },
-    // URL 14
-    { patterns: ["cp14", "coupleDP14", "cdp14", "couple14", "loveDP14", "ldp14"], url: coupleDpUrls.url14 },
-    // URL 15
-    { patterns: ["cp15", "coupleDP15", "cdp15", "couple15", "loveDP15", "ldp15"], url: coupleDpUrls.url15 },
-    // URL 16
-    { patterns: ["cp16", "coupleDP16", "cdp16", "couple16", "loveDP16", "ldp16"], url: coupleDpUrls.url16 },
-    // URL 17
-    { patterns: ["cp17", "coupleDP17", "cdp17", "couple17", "loveDP17", "ldp17"], url: coupleDpUrls.url17 },
-    // URL 18
-    { patterns: ["cp18", "coupleDP18", "cdp18", "couple18", "loveDP18", "ldp18"], url: coupleDpUrls.url18 },
-    // URL 19
-    { patterns: ["cp19", "coupleDP19", "cdp19", "couple19", "loveDP19", "ldp19"], url: coupleDpUrls.url19 },
-    // URL 20
-    { patterns: ["cp20", "coupleDP20", "cdp20", "couple20", "loveDP20", "ldp20"], url: coupleDpUrls.url20 },
-    // URL 21
-    { patterns: ["cp21", "coupleDP21", "cdp21", "couple21", "loveDP21", "ldp21"], url: coupleDpUrls.url21 },
-    // URL 22
-    { patterns: ["cp22", "coupleDP22", "cdp22", "couple22", "loveDP22", "ldp22"], url: coupleDpUrls.url22 },
-];
+// Couple DP 1
+cmd({ pattern: "cp1", desc: "Couple DP 1", category: "coupledp", react: "💑", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try { await conn.sendMessage(from, { image: { url: coupleDpUrls.url1 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in cp1:", e); await reply("Failed to send image."); }
+});
 
-// ✅ Auto loop - har pattern ke liye command register hogi
-allPatterns.forEach(({ patterns, url }, index) => {
-    patterns.forEach((pat) => {
-        cmd({
-            pattern: pat,
-            desc: `Couple DP ${index + 1}`,
-            category: "coupledp",
-            react: "💑",
-            filename: __filename
-        },
-        async (conn, mek, m, { from, reply }) => {
-            try {
-                await conn.sendMessage(from, {
-                    image: { url },
-                    mimetype: 'image/jpeg',
-                    caption
-                }, { quoted: mek });
-            } catch (e) {
-                console.error(`Error in ${pat}:`, e);
-                await reply("Failed to send image. Please try again.");
-            }
-        });
-    });
+// Couple DP 2
+cmd({ pattern: "cp2", desc: "Couple DP 2", category: "coupledp", react: "💑", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try { await conn.sendMessage(from, { image: { url: coupleDpUrls.url2 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in cp2:", e); await reply("Failed to send image."); }
+});
+
+// Couple DP 3
+cmd({ pattern: "cp3", desc: "Couple DP 3", category: "coupledp", react: "💑", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try { await conn.sendMessage(from, { image: { url: coupleDpUrls.url3 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in cp3:", e); await reply("Failed to send image."); }
+});
+
+// Couple DP 4
+cmd({ pattern: "cp4", desc: "Couple DP 4", category: "coupledp", react: "💑", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try { await conn.sendMessage(from, { image: { url: coupleDpUrls.url4 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in cp4:", e); await reply("Failed to send image."); }
+});
+
+// Couple DP 5
+cmd({ pattern: "cp5", desc: "Couple DP 5", category: "coupledp", react: "💑", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try { await conn.sendMessage(from, { image: { url: coupleDpUrls.url5 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in cp5:", e); await reply("Failed to send image."); }
+});
+
+// Couple DP 6
+cmd({ pattern: "cp6", desc: "Couple DP 6", category: "coupledp", react: "💑", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try { await conn.sendMessage(from, { image: { url: coupleDpUrls.url6 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in cp6:", e); await reply("Failed to send image."); }
+});
+
+// Couple DP 7
+cmd({ pattern: "cp7", desc: "Couple DP 7", category: "coupledp", react: "💑", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try { await conn.sendMessage(from, { image: { url: coupleDpUrls.url7 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in cp7:", e); await reply("Failed to send image."); }
+});
+
+// Couple DP 8
+cmd({ pattern: "cp8", desc: "Couple DP 8", category: "coupledp", react: "💑", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try { await conn.sendMessage(from, { image: { url: coupleDpUrls.url8 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in cp8:", e); await reply("Failed to send image."); }
+});
+
+// Couple DP 9
+cmd({ pattern: "cp9", desc: "Couple DP 9", category: "coupledp", react: "💑", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try { await conn.sendMessage(from, { image: { url: coupleDpUrls.url9 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in cp9:", e); await reply("Failed to send image."); }
+});
+
+// Couple DP 10
+cmd({ pattern: "cp10", desc: "Couple DP 10", category: "coupledp", react: "💑", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try { await conn.sendMessage(from, { image: { url: coupleDpUrls.url10 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in cp10:", e); await reply("Failed to send image."); }
+});
+
+// Couple DP 11
+cmd({ pattern: "cp11", desc: "Couple DP 11", category: "coupledp", react: "💑", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try { await conn.sendMessage(from, { image: { url: coupleDpUrls.url11 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in cp11:", e); await reply("Failed to send image."); }
+});
+
+// Couple DP 12
+cmd({ pattern: "cp12", desc: "Couple DP 12", category: "coupledp", react: "💑", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try { await conn.sendMessage(from, { image: { url: coupleDpUrls.url12 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in cp12:", e); await reply("Failed to send image."); }
+});
+
+// Couple DP 13
+cmd({ pattern: "cp13", desc: "Couple DP 13", category: "coupledp", react: "💑", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try { await conn.sendMessage(from, { image: { url: coupleDpUrls.url13 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in cp13:", e); await reply("Failed to send image."); }
+});
+
+// Couple DP 14
+cmd({ pattern: "cp14", desc: "Couple DP 14", category: "coupledp", react: "💑", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try { await conn.sendMessage(from, { image: { url: coupleDpUrls.url14 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in cp14:", e); await reply("Failed to send image."); }
+});
+
+// Couple DP 15
+cmd({ pattern: "cp15", desc: "Couple DP 15", category: "coupledp", react: "💑", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try { await conn.sendMessage(from, { image: { url: coupleDpUrls.url15 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in cp15:", e); await reply("Failed to send image."); }
+});
+
+// Couple DP 16
+cmd({ pattern: "cp16", desc: "Couple DP 16", category: "coupledp", react: "💑", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try { await conn.sendMessage(from, { image: { url: coupleDpUrls.url16 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in cp16:", e); await reply("Failed to send image."); }
+});
+
+// Couple DP 17
+cmd({ pattern: "cp17", desc: "Couple DP 17", category: "coupledp", react: "💑", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try { await conn.sendMessage(from, { image: { url: coupleDpUrls.url17 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in cp17:", e); await reply("Failed to send image."); }
+});
+
+// Couple DP 18
+cmd({ pattern: "cp18", desc: "Couple DP 18", category: "coupledp", react: "💑", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try { await conn.sendMessage(from, { image: { url: coupleDpUrls.url18 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in cp18:", e); await reply("Failed to send image."); }
+});
+
+// Couple DP 19
+cmd({ pattern: "cp19", desc: "Couple DP 19", category: "coupledp", react: "💑", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try { await conn.sendMessage(from, { image: { url: coupleDpUrls.url19 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in cp19:", e); await reply("Failed to send image."); }
+});
+
+// Couple DP 20
+cmd({ pattern: "cp20", desc: "Couple DP 20", category: "coupledp", react: "💑", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try { await conn.sendMessage(from, { image: { url: coupleDpUrls.url20 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in cp20:", e); await reply("Failed to send image."); }
+});
+
+// Couple DP 21
+cmd({ pattern: "cp21", desc: "Couple DP 21", category: "coupledp", react: "💑", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try { await conn.sendMessage(from, { image: { url: coupleDpUrls.url21 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in cp21:", e); await reply("Failed to send image."); }
+});
+
+// Couple DP 22
+cmd({ pattern: "cp22", desc: "Couple DP 22", category: "coupledp", react: "💑", filename: __filename },
+async (conn, mek, m, { from, reply }) => {
+    try { await conn.sendMessage(from, { image: { url: coupleDpUrls.url22 }, mimetype: 'image/jpeg', caption }, { quoted: mek });
+    } catch (e) { console.error("Error in cp22:", e); await reply("Failed to send image."); }
 });
