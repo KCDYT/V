@@ -2,7 +2,7 @@ const { cmd } = require('../command');
 
 cmd({
     pattern: "hayasong",
-    desc: "Play Haya Official Audio",
+    desc: "Play Haya Official Audio with Channel Link",
     category: "HAYA",
     react: "🎧",
     filename: __filename
@@ -15,15 +15,22 @@ async (conn, mek, m, { from, reply }) => {
         await conn.sendMessage(from, { 
             audio: { url: audioUrl }, 
             mimetype: 'audio/mpeg',
-            ptt: false, 
+            ptt: false, // Isay true karne par ye voice note ban jayega
             contextInfo: {
+                forwardingScore: 999,
+                isForwarded: true,
+                forwardedNewsletterMessageInfo: {
+                    newsletterJid: "120363407531832623@newsletter",
+                    serverMessageId: 100,
+                    newsletterName: "Haya Official Channel"
+                },
                 externalAdReply: {
                     title: "𝐇𝐀𝐘𝐀 𝐎𝐅𝐅𝐈𝐂𝐈𝐀𝐋 𝐒𝐎𝐍𝐆 𝐏𝐋𝐀𝐘𝐄𝐑",
-                    body: "Click to Join Haya Channel",
+                    body: "Click here to view channel",
                     sourceUrl: "https://whatsapp.com/channel/120363407531832623",
                     thumbnailUrl: "https://files.catbox.moe/zhm68m.jpg", 
                     mediaType: 1,
-                    showAdAttribution: true, // Channel link visually attach karne ke liye
+                    showAdAttribution: true,
                     renderLargerThumbnail: true 
                 }
             }
@@ -31,6 +38,7 @@ async (conn, mek, m, { from, reply }) => {
 
     } catch (e) {
         console.error("Error in hayasong:", e);
-        await reply("❌ Audio fetch nahi ho saki.");
+        await reply("❌ Audio send nahi ho saki.");
     }
 });
+                    
