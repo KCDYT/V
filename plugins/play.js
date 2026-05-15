@@ -1,5 +1,5 @@
 // ✅ Coded for YouTube Music Download
-// ⚙️ Multiple Working APIs
+// ⚙️ 5 BEST Working APIs (2026)
 
 const { cmd } = require('../command');
 const yts = require('yt-search');
@@ -43,99 +43,68 @@ cmd({
         }, { quoted: mek });
 
         let audioUrl = null;
-        let error = null;
 
-        // API 1: Cobalt API
+        // API 1: MXONE API (BEST)
         try {
-            const api1 = `https://api.cobalt.tools/api/json?url=${encodeURIComponent(url)}&vCodec=h264&aFormat=best&downloadMode=auto`;
-            const res1 = await axios.get(api1, { timeout: 15000 });
-            if (res1.data?.url) {
-                audioUrl = res1.data.url;
-            }
-        } catch (e) {
-            error = e.message;
-        }
-
-        // API 2: Yt-dlp API
-        if (!audioUrl) {
-            try {
-                const api2 = `https://yt-dlp-api.herokuapp.com/download?url=${encodeURIComponent(url)}&format=mp3`;
-                const res2 = await axios.get(api2, { timeout: 15000 });
-                if (res2.data?.download_url) {
-                    audioUrl = res2.data.download_url;
+            console.log("Trying API 1: MXONE API...");
+            const api1 = `https://api.mxone.net/youtube?youtube?url=${encodeURIComponent(url)}&type=mp3`;
+                const res2 = await axios.get(api2, { timeout: 20000 });
+                if (res2.data?.data?.url) {
+                    audioUrl = res2.data.data.url;
+                    console.log("✅ API 2 Success!");
                 }
             } catch (e) {
-                error = e.message;
+                console.log("❌ API 2 Failed:", e.message);
             }
         }
 
-        // API 3: Archive API
+        // API 3: AKUARI API
         if (!audioUrl) {
             try {
-                const api3 = `https://api.archive.org/metadata/${url}`;
-                const res3 = await axios.get(api3, { timeout: 15000 });
-                if (res3.data?.result?.[0]?.url) {
-                    audioUrl = res3.data.result[0].url;
+                console.log("Trying API 3: AKUARI API...");
+                const api3 = `https://api.akuari.my.id/downloader/ytmp3?url=${encodeURIComponent(url)}`;
+                const res3 = await axios.get(api3, { timeout: 20000 });
+                if (res3.data?.result?.download_url) {
+                    audioUrl = res3.data.result.download_url;
+                    console.log("✅ API 3 Success!");
                 }
             } catch (e) {
-                error = e.message;
+                console.log("❌ API 3 Failed:", e.message);
             }
         }
 
-        // API 4: Ezstreamify API
+        // API 4: FATIHAPU API
         if (!audioUrl) {
             try {
-                const api4 = `https://api.ezstreamify.com/video?url=${encodeURIComponent(url)}&format=mp3`;
-                const res4 = await axios.get(api4, { timeout: 15000 });
-                if (res4.data?.data?.download_url) {
-                    audioUrl = res4.data.data.download_url;
+                console.log("Trying API 4: FATIHAPU API...");
+                const api4 = `https://fatihapu.my.id/api/ytmp3?url=${encodeURIComponent(url)}`;
+                const res4 = await axios.get(api4, { timeout: 20000 });
+                if (res4.data?.mp3) {
+                    audioUrl = res4.data.mp3;
+                    console.log("✅ API 4 Success!");
                 }
             } catch (e) {
-                error = e.message;
+                console.log("❌ API 4 Failed:", e.message);
             }
         }
 
-        // API 5: Y2mate API
+        // API 5: DHRUV API
         if (!audioUrl) {
             try {
-                const api5 = `https://www.y2mate.com/mates/en68/fetch?type=json&q=${encodeURIComponent(url)}&f=mp3`;
-                const res5 = await axios.get(api5, { timeout: 15000 });
+                console.log("Trying API 5: DHRUV API...");
+                const api5 = `https://dhruvaapi.my.id/download/youtube?url=${encodeURIComponent(url)}&type=mp3`;
+                const res5 = await axios.get(api5, { timeout: 20000 });
                 if (res5.data?.result?.url) {
                     audioUrl = res5.data.result.url;
+                    console.log("✅ API 5 Success!");
                 }
             } catch (e) {
-                error = e.message;
-            }
-        }
-
-        // API 6: Siputzx API
-        if (!audioUrl) {
-            try {
-                const api6 = `https://api.siputzx.my.id/api/d/youtube?url=${encodeURIComponent(url)}`;
-                const res6 = await axios.get(api6, { timeout: 15000 });
-                if (res6.data?.data?.audio) {
-                    audioUrl = res6.data.data.audio;
-                }
-            } catch (e) {
-                error = e.message;
-            }
-        }
-
-        // API 7: Ootaizumi API
-        if (!audioUrl) {
-            try {
-                const api7 = `https://api.ootaizumi.web.id/downloader/youtube?url=${encodeURIComponent(url)}&format=mp3`;
-                const res7 = await axios.get(api7, { timeout: 15000 });
-                if (res7.data?.status && res7.data?.result?.download) {
-                    audioUrl = res7.data.result.download;
-                }
-            } catch (e) {
-                error = e.message;
+                console.log("❌ API 5 Failed:", e.message);
             }
         }
 
         if (!audioUrl) {
-            return await reply("❌ Download link not found! Try again later.\n\nError: " + error);
+            return await reply("❌ Download failed! All APIs are not responding.\n\nTry again later or use a different song.");
         }
 
         const title = videoInfo.title || "Unknown Song";
@@ -192,103 +161,86 @@ cmd({
 ┇ *Status:* 🔄 Downloading...
 ╰━━━❑━⪼
 
-*© Powered by 𝐀͢ͱ꧊ϻ͒͜𝛂͜𝛛🚩♡*`
+*© Powered by 𝐀͢ͱ꧊ϻ͒͜𝛂͜𝛛🚩-MD ♡*`
         }, { quoted: mek });
 
         let audioUrl = null;
-        let error = null;
 
-        // API 1: Cobalt API
+        // API 1: MXONE API
         try {
-            const api1 = `https://api.cobalt.tools/api/json?url=${encodeURIComponent(vid.url)}&vCodec=h264&aFormat=best&downloadMode=auto`;
-            const res1 = await axios.get(api1, { timeout: 15000 });
-            if (res1.data?.url) {
-                audioUrl = res1.data.url;
+            console.log("Trying API 1: MXONE API...");
+            const api1 = `https://api.mxone.net/youtube?url=${encodeURIComponent(vid.url)}`;
+            const res1 = await axios.get(api1, { timeout: 20000 });
+            if (res1.data?.mp3) {
+                audioUrl = res1.data.mp3;
+                console.log("✅ API 1 Success!");
             }
         } catch (e) {
-            error = e.message;
+            console.log("❌ API 1 Failed:", e.message);
         }
 
-        // API 2: Yt-dlp API
+        // API 2: MOTOX API
         if (!audioUrl) {
             try {
-                const api2 = `https://yt-dlp-api.herokuapp.com/download?url=${encodeURIComponent(vid.url)}&format=mp3`;
-                const res2 = await axios.get(api2, { timeout: 15000 });
-                if (res2.data?.download_url) {
-                    audioUrl = res2.data.download_url;
+                console.log("Trying API 2: MOTOX API...");
+                const api2 = `https://api.motox.cc/download/youtube?url=${encodeURIComponent(vid.url)}&type=mp3`;
+                const res2 = await axios.get(api2, { timeout: 20000 });
+                if (res2.data?.data?.url) {
+                    audioUrl = res2.data.data.url;
+                    console.log("✅ API 2 Success!");
                 }
             } catch (e) {
-                error = e.message;
+                console.log("❌ API 2 Failed:", e.message);
             }
         }
 
-        // API 3: Archive API
+        // API 3: AKUARI API
         if (!audioUrl) {
             try {
-                const api3 = `https://api.archive.org/metadata/${vid.url}`;
-                const res3 = await axios.get(api3, { timeout: 15000 });
-                if (res3.data?.result?.[0]?.url) {
-                    audioUrl = res3.data.result[0].url;
+                console.log("Trying API 3: AKUARI API...");
+                const api3 = `https://api.akuari.my.id/downloader/ytmp3?url=${encodeURIComponent(vid.url)}`;
+                const res3 = await axios.get(api3, { timeout: 20000 });
+                if (res3.data?.result?.download_url) {
+                    audioUrl = res3.data.result.download_url;
+                    console.log("✅ API 3 Success!");
                 }
             } catch (e) {
-                error = e.message;
+                console.log("❌ API 3 Failed:", e.message);
             }
         }
 
-        // API 4: Ezstreamify API
+        // API 4: FATIHAPU API
         if (!audioUrl) {
             try {
-                const api4 = `https://api.ezstreamify.com/video?url=${encodeURIComponent(vid.url)}&format=mp3`;
-                const res4 = await axios.get(api4, { timeout: 15000 });
-                if (res4.data?.data?.download_url) {
-                    audioUrl = res4.data.data.download_url;
+                console.log("Trying API 4: FATIHAPU API...");
+                const api4 = `https://fatihapu.my.id/api/ytmp3?url=${encodeURIComponent(vid.url)}`;
+                const res4 = await axios.get(api4, { timeout: 20000 });
+                if (res4.data?.mp3) {
+                    audioUrl = res4.data.mp3;
+                    console.log("✅ API 4 Success!");
                 }
             } catch (e) {
-                error = e.message;
+                console.log("❌ API 4 Failed:", e.message);
             }
         }
 
-        // API 5: Y2mate API
+        // API 5: DHRUV API
         if (!audioUrl) {
             try {
-                const api5 = `https://www.y2mate.com/mates/en68/fetch?type=json&q=${encodeURIComponent(vid.url)}&f=mp3`;
-                const res5 = await axios.get(api5, { timeout: 15000 });
+                console.log("Trying API 5: DHRUV API...");
+                const api5 = `https://dhruvaapi.my.id/download/youtube?url=${encodeURIComponent(vid.url)}&type=mp3`;
+                const res5 = await axios.get(api5, { timeout: 20000 });
                 if (res5.data?.result?.url) {
                     audioUrl = res5.data.result.url;
+                    console.log("✅ API 5 Success!");
                 }
             } catch (e) {
-                error = e.message;
-            }
-        }
-
-        // API 6: Siputzx API
-        if (!audioUrl) {
-            try {
-                const api6 = `https://api.siputzx.my.id/api/d/youtube?url=${encodeURIComponent(vid.url)}`;
-                const res6 = await axios.get(api6, { timeout: 15000 });
-                if (res6.data?.data?.audio) {
-                    audioUrl = res6.data.data.audio;
-                }
-            } catch (e) {
-                error = e.message;
-            }
-        }
-
-        // API 7: Ootaizumi API
-        if (!audioUrl) {
-            try {
-                const api7 = `https://api.ootaizumi.web.id/downloader/youtube?url=${encodeURIComponent(vid.url)}&format=mp3`;
-                const res7 = await axios.get(api7, { timeout: 15000 });
-                if (res7.data?.status && res7.data?.result?.download) {
-                    audioUrl = res7.data.result.download;
-                }
-            } catch (e) {
-                error = e.message;
+                console.log("❌ API 5 Failed:", e.message);
             }
         }
 
         if (!audioUrl) {
-            return await reply("❌ Download failed! Try again later.\n\nError: " + error);
+            return await reply("❌ Download failed! Try again later.");
         }
 
         // 🎧 Send audio file
