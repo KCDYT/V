@@ -1,6 +1,14 @@
+// ════════════════════════════════════════════════════════
+// 🎵 PLAY / SONG COMMAND FIXED
+// ✅ Stable Audio Downloader
+// ⚡ Powered By AHMAD-MD
+// ════════════════════════════════════════════════════════
+
 const { cmd } = require('../command');
 const yts = require('yt-search');
 const axios = require('axios');
+const fs = require('fs');
+const path = require('path');
 
 cmd({
     pattern: "play",
@@ -11,51 +19,139 @@ cmd({
     filename: __filename
 },
 async (conn, mek, m, { from, q, reply }) => {
+
     try {
-        if (!q) return reply("🎵 Please provide a song name\n\nExample: .play Faded");
 
+        // ❌ No Query
+        if (!q) {
+            return reply(
+                "🎵 Please provide a song name\n\nExample: .play Faded Alan Walker"
+            );
+        }
+
+        // 🎶 Reaction
+        await conn.sendMessage(from, {
+            react: {
+                text: "🎶",
+                key: m.key
+            }
+        });
+
+        // 🔍 Search YouTube
         const search = await yts(q);
-        const video = search.videos[0];
-        if (!video) return reply("❌ No results found");
 
-        // Info Message
+        if (!search.videos || search.videos.length === 0) {
+
+            await conn.sendMessage(from, {
+                react: {
+                    text: "❌",
+                    key: m.key
+                }
+            });
+
+            return reply("❌ No results found");
+        }
+
+        const video = search.videos[0];
+
+        // 📥 API Request
+        const api =
+`https://jawad-tech.vercel.app/download/ytdl?url=${encodeURIComponent(video.url)}`;
+
+        const { data } = await axios.get(api, {
+            timeout: 30000
+        });
+
+        console.log("API RESPONSE:", data);
+
+        // 🎧 Audio URL Detect
+        const audioUrl =
+            data?.result?.audio ||
+            data?.result?.url ||
+            data?.audio ||
+            data?.url ||
+            data?.result?.mp3;
+
+        // ❌ No Audio
+        if (!audioUrl) {
+            throw new Error("Audio URL not found");
+        }
+
+        // 🖼️ Song Info
         await conn.sendMessage(from, {
             image: { url: video.thumbnail },
-            caption: `*🎵 Title:* ${video.title}\n*⏱️ Duration:* ${video.timestamp}\n\n> 📥 Downloading...`
+            caption:
+`╭━━━〔 🎵 SONG DOWNLOADER 〕━━━⬣
+┃
+┃ 🎵 *Title:* ${video.title}
+┃ 👤 *Author:* ${video.author?.name || "Unknown"}
+┃ ⏱️ *Duration:* ${video.timestamp}
+┃ 👁️ *Views:* ${video.views.toLocaleString()}
+┃
+┃ 📥 *Status:* Downloading...
+┃
+╰━━━━━━━━━━━━━━━━━━⬣
+
+> Powered By AHMAD-MD`
         }, { quoted: mek });
 
-        // API Call
-        const api = `https://jawad-tech.vercel.app/download/ytdl?url=${encodeURIComponent(video.url)}`;
-        const { data } = await axios.get(api);
+        // 📥 Download Audio Buffer
+        const audioBuffer = await axios.get(audioUrl, {
+            responseType: "arraybuffer",
+            timeout: 30000
+        });
 
-        const audioUrl = data?.result?.audio || data?.result?.url || data?.url;
+        // 📂 Temp File
+        const filePath = path.join(__dirname, "temp_song.mp3");
 
-        if (!audioUrl) return reply("❌ Download link not found.");
+        fs.writeFileSync(filePath, audioBuffer.data);
 
-        // ✅ FIXED: Direct Audio Sending (No Temp File Needed)
+        // 🎧 Send Audio
         await conn.sendMessage(from, {
-            audio: { url: audioUrl }, // Direct URL se WhatsApp behtar handle karta hai
+            audio: fs.readFileSync(filePath),
             mimetype: "audio/mpeg",
             fileName: `${video.title}.mp3`,
             ptt: false,
+
             contextInfo: {
                 externalAdReply: {
                     title: video.title,
-                    body: "AHMAD-MD Music Player",
+                    body: "YouTube Audio",
                     thumbnailUrl: video.thumbnail,
                     sourceUrl: video.url,
                     mediaType: 1,
-                    showAdAttribution: true,
                     renderLargerThumbnail: true
                 }
             }
+
         }, { quoted: mek });
 
-        await conn.sendMessage(from, { react: { text: "✅", key: m.key } });
+        // 🗑️ Delete Temp File
+        fs.unlinkSync(filePath);
+
+        // ✅ Success Reaction
+        await conn.sendMessage(from, {
+            react: {
+                text: "✅",
+                key: m.key
+            }
+        });
 
     } catch (e) {
-        console.log("Error:", e);
-        reply("⚠️ Server Error: Try again later.");
+
+        console.log("PLAY ERROR:", e);
+
+        // ❌ Error Reaction
+        await conn.sendMessage(from, {
+            react: {
+                text: "❌",
+                key: m.key
+            }
+        });
+
+        reply("⚠️ Error while processing request");
     }
+
 });
-            
+
+                    
