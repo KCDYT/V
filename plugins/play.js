@@ -1,12 +1,14 @@
 // ════════════════════════════════════════════════════════
-// 🎵 PLAY / SONG COMMAND
-// ✅ API: jawad-tech.vercel.app
+// 🎵 PLAY / SONG COMMAND FIXED
+// ✅ Stable Audio Downloader
 // ⚡ Powered By AHMAD-MD
 // ════════════════════════════════════════════════════════
 
 const { cmd } = require('../command');
 const yts = require('yt-search');
 const axios = require('axios');
+const fs = require('fs');
+const path = require('path');
 
 cmd({
     pattern: "play",
@@ -27,7 +29,7 @@ async (conn, mek, m, { from, q, reply }) => {
             );
         }
 
-        // 🎶 React
+        // 🎶 Reaction
         await conn.sendMessage(from, {
             react: {
                 text: "🎶",
@@ -57,18 +59,20 @@ async (conn, mek, m, { from, q, reply }) => {
 `https://jawad-tech.vercel.app/download/ytdl?url=${encodeURIComponent(video.url)}`;
 
         const { data } = await axios.get(api, {
-            timeout: 20000
+            timeout: 30000
         });
 
-        // 🔍 Debug
-        console.log(data);
+        console.log("API RESPONSE:", data);
 
-        // 🎧 Audio URL
+        // 🎧 Audio URL Detect
         const audioUrl =
             data?.result?.audio ||
+            data?.result?.url ||
             data?.audio ||
+            data?.url ||
             data?.result?.mp3;
 
+        // ❌ No Audio
         if (!audioUrl) {
             throw new Error("Audio URL not found");
         }
@@ -91,9 +95,20 @@ async (conn, mek, m, { from, q, reply }) => {
 > Powered By AHMAD-MD`
         }, { quoted: mek });
 
+        // 📥 Download Audio Buffer
+        const audioBuffer = await axios.get(audioUrl, {
+            responseType: "arraybuffer",
+            timeout: 30000
+        });
+
+        // 📂 Temp File
+        const filePath = path.join(__dirname, "temp_song.mp3");
+
+        fs.writeFileSync(filePath, audioBuffer.data);
+
         // 🎧 Send Audio
         await conn.sendMessage(from, {
-            audio: { url: audioUrl },
+            audio: fs.readFileSync(filePath),
             mimetype: "audio/mpeg",
             fileName: `${video.title}.mp3`,
             ptt: false,
@@ -111,7 +126,10 @@ async (conn, mek, m, { from, q, reply }) => {
 
         }, { quoted: mek });
 
-        // ✅ Success
+        // 🗑️ Delete Temp File
+        fs.unlinkSync(filePath);
+
+        // ✅ Success Reaction
         await conn.sendMessage(from, {
             react: {
                 text: "✅",
@@ -123,7 +141,7 @@ async (conn, mek, m, { from, q, reply }) => {
 
         console.log("PLAY ERROR:", e);
 
-        // ❌ Error React
+        // ❌ Error Reaction
         await conn.sendMessage(from, {
             react: {
                 text: "❌",
