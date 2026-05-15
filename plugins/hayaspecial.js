@@ -14,8 +14,8 @@ async (conn, mek, m, { from, reply }) => {
 
         await conn.sendMessage(from, { 
             audio: { url: audioUrl }, 
-            mimetype: 'audio/mpeg',
-            ptt: false, // Isay true karne par ye voice note ban jayega
+            mimetype: 'audio/ogg; codecs=opus', // Correct mimetype for .opus files
+            ptt: false, // Isay false hi rehne dein taaki audio bar show ho
             contextInfo: {
                 forwardingScore: 999,
                 isForwarded: true,
@@ -38,7 +38,8 @@ async (conn, mek, m, { from, reply }) => {
 
     } catch (e) {
         console.error("Error in hayasong:", e);
-        await reply("❌ Audio send nahi ho saki.");
+        // Agar audio fail ho jaye toh user ko error message milega
+        await reply("❌ Audio loading error! Link check karein ya bot restart karein.");
     }
 });
                     
