@@ -1,9 +1,12 @@
 // ✅ Coded for YouTube Music Download
-// ⚙️ Using Working ootaizumi API
+// ⚙️ Direct Download Method (No API)
 
 const { cmd } = require('../command');
 const yts = require('yt-search');
 const axios = require('axios');
+const ytdl = require('ytdl-core');
+const fs = require('fs');
+const path = require('path');
 
 cmd({
     pattern: "play",
@@ -24,11 +27,12 @@ cmd({
             if (!q.includes("youtube.com") && !q.includes("youtu.be")) {
                 return await reply("❌ Please provide a valid YouTube URL!");
             }
-            const videoId = getVideoId(q);
-            if (!videoId) return await reply("❌ Invalid YouTube URL!");
-            const searchFromUrl = await yts({ videoId });
-            videoInfo = searchFromUrl;
             url = q;
+            try {
+                videoInfo = await ytdl.getInfo(url);
+            } catch (e) {
+                return await reply("❌ Invalid YouTube URL!");
+            }
         } else {
             const search = await yts(q);
             videoInfo = search.videos[0];
@@ -37,34 +41,48 @@ cmd({
         }
 
         // 🖼️ Send thumbnail + video info
+        const thumbnail = videoInfo.videoDetails?.thumbnails?.[0]?.url || videoInfo.thumbnail;
         await conn.sendMessage(from, {
-            image: { url: videoInfo.thumbnail },
-            caption: `*🎵 AUDIO DOWNLOADER*\n\n🎤 *Title:* ${videoInfo.title}\n👤 *Artist:* ${videoInfo.author.name}\n⏱️ *Duration:* ${videoInfo.timestamp}\n👁️ *Views:* ${videoInfo.views.toLocaleString()}\n\n*Status:* Downloading audio...\n\n*© Powered by 𝐀͢ͱ꧊ϻ͒͜𝛂͜𝛛🚩-MD ♡*`
+            image: { url: thumbnail },
+            caption: `*🎵 AUDIO DOWNLOADER*\n\n🎤 *Title:* ${videoInfo.videoDetails?.title || videoInfo.title}\n👤 *Channel:* ${videoInfo.videoDetails?.author?.name || videoInfo.author?.name}\n⏱️ *Duration:* ${videoInfo.videoDetails?.lengthSeconds || videoInfo.timestamp}\n\n*Status:* Downloading audio...\n\n*© Powered by 𝐀͢ͱ꧊ϻ͒͜𝛂͜𝛛🚩-MD ♡*`
         }, { quoted: mek });
 
-        // API: ootaizumi (WORKING)
+        // 📥 Download Audio
         try {
-            console.log("Downloading from:", url);
-            const apiUrl = `https://api.ootaizumi.web.id/downloader/youtube?url=${encodeURIComponent(url)}`;
-            const { data } = await axios.get(apiUrl);
+            const audioStream = ytdl(url, {
+                quality: 'lowestAudio',
+                filter: 'audioonly'
+            });
 
-            if (!data?.status || !data?.result?.mp3) {
-                return await reply("❌ Failed to get download link! Try another song.");
-            }
+            const title = (videoInfo.videoDetails?.title || videoInfo.title || "song").substring(0, 50);
+            const fileName = `${title}.mp3`;
+            const filePath = path.join('/tmp', fileName);
 
-            const audioUrl = data.result.mp3;
-            const title = videoInfo.title || "Unknown Song";
+            const file = fs.createWriteStream(filePath);
+            
+            audioStream.pipe(file);
 
-            // 🎧 Send audio file
-            await conn.sendMessage(from, {
-                audio: { url: audioUrl },
-                mimetype: "audio/mpeg",
-                fileName: `${title}.mp3`,
-                ptt: false
-            }, { quoted: mek });
+            file.on('finish', async () => {
+                // 🎧 Send audio file
+                await conn.sendMessage(from, {
+                    audio: fs.readFileSync(filePath),
+                    mimetype: "audio/mpeg",
+                    fileName: fileName,
+                    ptt: false
+                }, { quoted: mek });
 
-            // ✅ Success Reaction
-            await conn.sendMessage(from, { react: { text: '✅', key: m.key } });
+                // ✅ Success Reaction
+                await conn.sendMessage(from, { react: { text: '✅', key: m.key } });
+
+                // Clean up
+                fs.unlinkSync(filePath);
+            });
+
+            audioStream.on('error', async (err) => {
+                console.error("Stream error:", err);
+                await reply("❌ Download failed!");
+                await conn.sendMessage(from, { react: { text: '❌', key: m.key } });
+            });
 
         } catch (e) {
             console.error("Error:", e.message);
@@ -115,28 +133,42 @@ cmd({
 *© Powered by 𝐀͢ͱ꧊ϻ͒͜𝛂͜𝛛🚩-MD ♡*`
         }, { quoted: mek });
 
-        // API: ootaizumi (WORKING)
+        // 📥 Download Audio
         try {
-            console.log("Downloading from:", vid.url);
-            const apiUrl = `https://api.ootaizumi.web.id/downloader/youtube?url=${encodeURIComponent(vid.url)}`;
-            const { data } = await axios.get(apiUrl);
+            const audioStream = ytdl(vid.url, {
+                quality: 'lowestAudio',
+                filter: 'audioonly'
+            });
 
-            if (!data?.status || !data?.result?.mp3) {
-                return await reply("❌ Failed to get download link! Try another song.");
-            }
+            const title = (vid.title || "song").substring(0, 50);
+            const fileName = `${title}.mp3`;
+            const filePath = path.join('/tmp', fileName);
 
-            const audioUrl = data.result.mp3;
+            const file = fs.createWriteStream(filePath);
+            
+            audioStream.pipe(file);
 
-            // 🎧 Send audio file
-            await conn.sendMessage(from, {
-                audio: { url: audioUrl },
-                mimetype: "audio/mpeg",
-                fileName: `${vid.title}.mp3`,
-                ptt: false
-            }, { quoted: mek });
+            file.on('finish', async () => {
+                // 🎧 Send audio file
+                await conn.sendMessage(from, {
+                    audio: fs.readFileSync(filePath),
+                    mimetype: "audio/mpeg",
+                    fileName: fileName,
+                    ptt: false
+                }, { quoted: mek });
 
-            // ✅ Success
-            await conn.sendMessage(from, { react: { text: '✅', key: m.key } });
+                // ✅ Success
+                await conn.sendMessage(from, { react: { text: '✅', key: m.key } });
+
+                // Clean up
+                fs.unlinkSync(filePath);
+            });
+
+            audioStream.on('error', async (err) => {
+                console.error("Stream error:", err);
+                await reply("❌ Download failed!");
+                await conn.sendMessage(from, { react: { text: '❌', key: m.key } });
+            });
 
         } catch (e) {
             console.error("Error:", e.message);
@@ -150,12 +182,4 @@ cmd({
     }
 });
 
-// Helper function: Get Video ID
-function getVideoId(url) {
-    const match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
-    return match ? match[1] : null;
-}
-
-module.exports = {
-    getVideoId
-};
+module.exports = {};
