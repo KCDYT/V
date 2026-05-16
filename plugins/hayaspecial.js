@@ -1,45 +1,39 @@
-const { cmd } = require('../command');
+const config = require('../config')
+const { cmd, commands } = require('../command');
+const path = require('path');
+const os = require("os")
+const fs = require('fs');
+const {runtime} = require('../lib/functions')
+const axios = require('axios')
 
 cmd({
-    pattern: "hayasong",
-    desc: "Play Haya Official Audio with Channel Link",
-    category: "HAYA",
-    react: "🎧",
+    pattern: "hayasong", // Ab main command .hayasong hai
+    alias: ["haya", "song"], // Ye shortcuts bhi kaam karenge
+    category: "main",
+    react: "⚡",
     filename: __filename
 },
 async (conn, mek, m, { from, reply }) => {
     try {
-        // Aapka Diya Gaya Audio Link
-        const audioUrl = "https://files.catbox.moe/cs1158.opus";
-
-        await conn.sendMessage(from, { 
-            audio: { url: audioUrl }, 
-            mimetype: 'audio/ogg; codecs=opus', // Correct mimetype for .opus files
-            ptt: false, // Isay false hi rehne dein taaki audio bar show ho
-            contextInfo: {
-                forwardingScore: 999,
-                isForwarded: true,
-                forwardedNewsletterMessageInfo: {
-                    newsletterJid: "120363407531832623@newsletter",
-                    serverMessageId: 100,
-                    newsletterName: "Haya Official Channel"
-                },
-                externalAdReply: {
-                    title: "𝐇𝐀𝐘𝐀 𝐎𝐅𝐅𝐈𝐂𝐈𝐀𝐋 𝐒𝐎𝐍𝐆 𝐏𝐋𝐀𝐘𝐄𝐑",
-                    body: "Click here to view channel",
-                    sourceUrl: "https://whatsapp.com/channel/120363407531832623",
-                    thumbnailUrl: "https://files.catbox.moe/zhm68m.jpg", 
-                    mediaType: 1,
-                    showAdAttribution: true,
-                    renderLargerThumbnail: true 
-                }
+        // Audio file channel forwarding details ke sath send hogi
+        await conn.sendMessage(from, {
+            audio: { url: "https://files.catbox.moe/hoi9ur.mp3" },
+            mimetype: 'audio/mpeg',
+            ptt: false, 
+            contextInfo: { 
+                mentionedJid: [m.sender], 
+                forwardingScore: 999, 
+                isForwarded: true, 
+                forwardedNewsletterMessageInfo: { 
+                    newsletterJid: '120363408512260657@newsletter', 
+                    newsletterName: "AHMADTech", 
+                    serverMessageId: 143 
+                } 
             }
         }, { quoted: mek });
 
-    } catch (e) {
-        console.error("Error in hayasong:", e);
-        // Agar audio fail ho jaye toh user ko error message milega
-        await reply("❌ Audio loading error! Link check karein ya bot restart karein.");
-    }
+    } catch (e) { 
+        reply(`Error: ${e.message}`); 
+    } 
 });
-                    
+        
