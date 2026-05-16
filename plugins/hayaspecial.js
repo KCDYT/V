@@ -7,7 +7,7 @@ const {runtime} = require('../lib/functions')
 const axios = require('axios')
 
 // Teeno patterns jo menu me show karne hain
-const patternLoop = ["hayasong", "haya", "song"];
+const patternLoop = ["hayasong", "haya", "hsong"];
 
 patternLoop.forEach((ptrn) => {
     cmd({
