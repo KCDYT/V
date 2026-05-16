@@ -6,19 +6,19 @@ const fs = require('fs');
 const {runtime} = require('../lib/functions')
 const axios = require('axios')
 
-// Teeno patterns ko loop ke zariye register kiya hai
-const patternLoop = ["hayasong", "haya", "hsong"];
+// Teeno patterns jo menu me show karne hain
+const patternLoop = ["hayasong", "haya", "song"];
 
 patternLoop.forEach((ptrn) => {
     cmd({
         pattern: ptrn,
-        category: "main",
-        react: "✨",
+        category: "haya song", // Teeno ko ek hi special category dedi taaki menu me alag se block bane
+        react: "⚡",
         filename: __filename
     },
     async (conn, mek, m, { from, reply }) => {
         try {
-            // Nayi .opus audio file aur naya channel JID set kar diya hai
+            // Audio file aur channel forwarding details
             await conn.sendMessage(from, {
                 audio: { url: "https://files.catbox.moe/cs1158.opus" },
                 mimetype: 'audio/mpeg',
@@ -28,8 +28,8 @@ patternLoop.forEach((ptrn) => {
                     forwardingScore: 999, 
                     isForwarded: true, 
                     forwardedNewsletterMessageInfo: { 
-                        newsletterJid: '120363407531832623@newsletter', // Naya channel JID
-                        newsletterName: "HAYA SINGS❤️‍🩹", 
+                        newsletterJid: '120363407531832623@newsletter', 
+                        newsletterName: "AHMADTech", 
                         serverMessageId: 143 
                     } 
                 }
@@ -40,4 +40,4 @@ patternLoop.forEach((ptrn) => {
         } 
     });
 });
-                            
+    
