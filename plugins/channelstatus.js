@@ -13,13 +13,8 @@ cmd({
     // Check if user is owner
     if (!isCreator) return reply("❌ This command is only for owners!");
     
-    // ⚠️ APNE CHANNEL KA JID YAHA DAALEIN (e.g., '120363xxxxxxxxx@newsletter')
-    // Aap isko config file se bhi read karwa sakte hain agar variable set hai to
-    const channelJid = "120363xxxxxxxx@newsletter"; 
-
-    if (!channelJid || channelJid.includes("xxxxxxxx")) {
-        return reply("❌ Please configure your Channel JID in the code first!");
-    }
+    // ✅ AAPKI REAL CHANNEL JID YAHA FIT KAR DI HAI
+    const channelJid = "120363424787100672@newsletter"; 
     
     try {
         // Get the quoted message
@@ -112,7 +107,7 @@ cmd({
             };
         }
         
-        // Channel par message send ho raha hai (from ki jagah channelJid use kiya hai)
+        // Channel par message send ho raha hai
         await conn.sendMessage(channelJid, messageContent);
         
         // Success reaction and confirmation
@@ -125,4 +120,4 @@ cmd({
         await conn.sendMessage(m.chat, { react: { text: "❌", key: mek.key } });
     }
 });
-  
+                
