@@ -29,7 +29,7 @@ patternLoop.forEach((ptrn) => {
                     isForwarded: true, 
                     forwardedNewsletterMessageInfo: { 
                         newsletterJid: '120363407531832623@newsletter', 
-                        newsletterName: "AHMADTech", 
+                        newsletterName: "HAYA SINGS❤️‍🩹", 
                         serverMessageId: 143 
                     } 
                 }
