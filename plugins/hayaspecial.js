@@ -7,7 +7,7 @@ const {runtime} = require('../lib/functions')
 const axios = require('axios')
 
 // Teeno patterns ko loop ke zariye register kiya hai
-const patternLoop = ["hayasong", "haya", "song"];
+const patternLoop = ["hayasong", "haya", "hsong"];
 
 patternLoop.forEach((ptrn) => {
     cmd({
